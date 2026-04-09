@@ -22,7 +22,8 @@ mongoose.connect(process.env.MONGO_URI, {
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api', require('./routes/caeRoutes'));
 app.use('/api', require('./routes/semRoutes'));
-app.use('/api', require('./routes/analysis')); // staff-subject route
+const analysisRoutes = require('./routes/analysis.js');
+app.use('/api', analysisRoutes);
 
 // ⭐ ADD THIS BEFORE app.listen
 const staffAnalysisRoutes = require('./routes/staffAnalysisRoutes');
