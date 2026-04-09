@@ -10,6 +10,9 @@ import SavedSem from './pages/SavedSem';
 import StaffAnalysis from './pages/StaffAnalysis';
 import CompareCae from './pages/CompareCae';
 import CompareSem from './pages/CompareSem';
+import SavedStaff from "./pages/SavedStaffAnalysis";
+import CompareStaff from "./pages/CompareStaff";
+
 
 function App() {
   return (
@@ -26,6 +29,8 @@ function App() {
           <Route path="/staff-analysis" element={<StaffAnalysis/>} />
           <Route path="/compare-cae" element={<CompareCae/>} />
           <Route path="/compare-sem" element={<CompareSem/>} />
+         <Route path="/saved-staff" element={<SavedStaff />} />
+<Route path="/compare-staff" element={<CompareStaff />} />
         </Route>
 
         <Route path="*" element={<Home />} />

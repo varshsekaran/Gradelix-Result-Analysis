@@ -10,7 +10,6 @@ function Analysis() {
   const location = useLocation();
   const { year, semester, cae, mode, subjectStats, studentArrears } = location.state || {};
 
-
   let totalPass = 0;
   let totalStudents = 0;
 
@@ -21,38 +20,36 @@ function Analysis() {
     });
   }
 
-  const overallPercentage = totalStudents > 0
-    ? ((totalPass / totalStudents) * 100).toFixed(2)
-    : '0.00';
+  const overallPercentage =
+    totalStudents > 0 ? ((totalPass / totalStudents) * 100).toFixed(2) : '0.00';
 
-   const [saveName, setSaveName] = useState('');
-   const [showArrears, setShowArrears] = useState(false);
+  const [saveName, setSaveName] = useState('');
+  const [showArrears, setShowArrears] = useState(false);
 
+  const handleSave = async () => {
+    try {
+      const endpoint = mode === 'cae' ? 'save-cae' : 'save-semester';
 
-const handleSave = async () => {
-  try {
-    const endpoint = mode === 'cae' ? 'save-cae' : 'save-semester';
+      await axios.post(`http://localhost:5000/api/${endpoint}`, {
+        name: saveName,
+        year,
+        semester,
+        cae: mode === 'cae' ? cae : null,
+        mode,
+        subjectStats,
+        overallPercentage,
+      });
 
-    await axios.post(`http://localhost:5000/api/${endpoint}`, {
-      name: saveName,
-      year,
-      semester,
-      cae: mode === 'cae' ? cae : null,
-      mode,
-      subjectStats,
-      overallPercentage,
-    });
-
-    alert('Analysis saved successfully!');
-    navigate(mode === 'cae' ? '/saved-cae' : '/saved-sem');
-  } catch (err) {
-    console.error(err);
-    alert('Failed to save analysis');
-  }
-};
+      alert('Analysis saved successfully!');
+      navigate(mode === 'cae' ? '/saved-cae' : '/saved-sem');
+    } catch (err) {
+      console.error(err);
+      alert('Failed to save analysis');
+    }
+  };
 
   const downloadCSVReport = () => {
-    const filteredArrears = studentArrears?.filter(student => student.arrearCount >= 3);
+    const filteredArrears = studentArrears?.filter((student) => student.arrearCount >= 3);
 
     if (!filteredArrears || filteredArrears.length === 0) {
       alert('No arrear data to download');
@@ -76,16 +73,90 @@ const handleSave = async () => {
     document.body.removeChild(link);
   };
 
-  const studentsWithHighArrears = studentArrears?.filter(s => s.arrearCount >= 3) || [];
- console.log('studentArrears', studentArrears);
- 
+  // ⭐ NEW FUNCTION TO DOWNLOAD ANALYSIS REPORT
+  const downloadAnalysisDoc = () => {
+    if (!subjectStats) {
+      alert('No analysis data available');
+      return;
+    }
+
+    let rows = '';
+
+    Object.entries(subjectStats).forEach(([subject, stats]) => {
+      rows += `
+      <tr>
+        <td>${subject}</td>
+        <td>${stats.total}</td>
+        <td>${stats.present}</td>
+        <td>${stats.absent}</td>
+        <td>${stats.fail}</td>
+        <td>${stats.pass}</td>
+        <td>${stats.percentage}</td>
+      </tr>
+      `;
+    });
+
+    const htmlContent = `
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>Analysis Report</title>
+    </head>
+    <body>
+
+      <h2>Result Analysis Report</h2>
+
+      <p><b>Year:</b> ${year}</p>
+      <p><b>Semester:</b> ${semester}</p>
+      ${mode === 'cae' ? `<p><b>CAE:</b> ${cae}</p>` : ''}
+      <p><b>Overall Pass Percentage:</b> ${overallPercentage}%</p>
+
+      <table border="1" style="border-collapse:collapse; width:100%">
+        <thead>
+          <tr>
+            <th>Subject Code</th>
+            <th>Total</th>
+            <th>Present</th>
+            <th>Absent</th>
+            <th>Fail</th>
+            <th>Pass</th>
+            <th>Percentage</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rows}
+        </tbody>
+      </table>
+
+    </body>
+    </html>
+    `;
+
+    const blob = new Blob([htmlContent], { type: 'application/msword' });
+
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `${saveName || 'Analysis_Report'}.doc`;
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const studentsWithHighArrears =
+    studentArrears?.filter((s) => s.arrearCount >= 3) || [];
 
   return (
     <div className="analysis-container">
       <h2>{showArrears ? 'Arrear Report' : `Analysis - ${mode?.toUpperCase()}`}</h2>
+
       <p>
         <strong>Year:</strong> {year} | <strong>Semester:</strong> {semester}{' '}
-        {mode === 'cae' && <>| <strong>CAE:</strong> {cae}</>}
+        {mode === 'cae' && (
+          <>
+            | <strong>CAE:</strong> {cae}
+          </>
+        )}
       </p>
 
       <div className="table-wrapper">
@@ -111,9 +182,10 @@ const handleSave = async () => {
               )}
             </tr>
           </thead>
+
           <tbody>
             {showArrears ? (
-              studentArrears && studentArrears.filter(s => s.arrearCount >= 3).length > 0 ? (
+              studentArrears && studentArrears.filter((s) => s.arrearCount >= 3).length > 0 ? (
                 studentArrears
                   .filter((student) => student.arrearCount >= 3)
                   .map((student, index) => (
@@ -128,8 +200,7 @@ const handleSave = async () => {
                   <td colSpan={3}>No student arrear data available</td>
                 </tr>
               )
-            ) : (
-            subjectStats && Object.keys(subjectStats).length > 0 ? (
+            ) : subjectStats && Object.keys(subjectStats).length > 0 ? (
               Object.entries(subjectStats).map(([subject, stats]) => (
                 <tr key={subject}>
                   <td>{subject}</td>
@@ -145,13 +216,11 @@ const handleSave = async () => {
               <tr>
                 <td colSpan="7">No data available</td>
               </tr>
-            )
             )}
           </tbody>
         </table>
       </div>
 
-      {/* ✅ Show this outside table-wrapper but inside scroll container */}
       {!showArrears && (
         <>
           <div
@@ -164,41 +233,41 @@ const handleSave = async () => {
               flexWrap: 'wrap',
             }}
           >
-            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-              <input
-                type="text"
-                placeholder="Enter analysis name"
-                value={saveName}
-                onChange={(e) => setSaveName(e.target.value)}
-                style={{ padding: '8px' }}
-              />
-              <button
-                onClick={handleSave}
-                style={{
-                  padding: '8px 12px',
-                  backgroundColor: '#800033',
-                  color: '#fff',
-                }}
-              >
-                Save As
-              </button>
-            </div>
+            <input
+              type="text"
+              placeholder="Enter analysis name"
+              value={saveName}
+              onChange={(e) => setSaveName(e.target.value)}
+              style={{ padding: '8px' }}
+            />
+
+            <button
+              onClick={handleSave}
+              style={{ padding: '8px 12px', backgroundColor: '#800033', color: '#fff' }}
+            >
+              Save As
+            </button>
+
+            {/* ⭐ DOWNLOAD BUTTON */}
+            <button
+              onClick={downloadAnalysisDoc}
+              style={{ padding: '8px 12px', backgroundColor: '#800033', color: '#fff' }}
+            >
+              Download Analysis Report
+            </button>
           </div>
 
           <div style={{ marginTop: '1rem', textAlign: 'center' }}>
             <button
               onClick={() => setShowArrears(true)}
-              style={{
-                padding: '8px 12px',
-                backgroundColor: '#800033',
-                color: '#fff',
-              }}
+              style={{ padding: '8px 12px', backgroundColor: '#800033', color: '#fff' }}
             >
               Show Arrears
             </button>
           </div>
         </>
       )}
+
       {showArrears && (
         <div style={{ marginTop: '2rem', textAlign: 'center' }}>
           <div
@@ -223,13 +292,10 @@ const handleSave = async () => {
                 borderRadius: '4px',
               }}
             />
+
             <button
               onClick={downloadCSVReport}
-              style={{
-                padding: '8px 12px',
-                backgroundColor: '#800033',
-                color: '#fff',
-              }}
+              style={{ padding: '8px 12px', backgroundColor: '#800033', color: '#fff' }}
             >
               Download Arrear Report
             </button>
@@ -237,18 +303,12 @@ const handleSave = async () => {
 
           <button
             onClick={() => setShowArrears(false)}
-            style={{
-              padding: '8px 12px',
-              backgroundColor: '#800033',
-              color: '#fff',
-            }}
+            style={{ padding: '8px 12px', backgroundColor: '#800033', color: '#fff' }}
           >
             Back to Analysis
           </button>
         </div>
       )}
-
-
     </div>
   );
 }

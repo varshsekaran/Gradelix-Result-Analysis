@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './SideBar.css';
 import { Outlet, useNavigate } from 'react-router-dom';
-import profilePic from '../assets/Profile.jpg';
+import profilePic from '../assets/profile2.png';
 //import axios from 'axios';
 
 function Sidebar() {
@@ -38,6 +38,11 @@ function Sidebar() {
 
         <button className="sidebar-btn" onClick={() => navigate('/saved-sem')}>SAVE SEMESTER</button>
         <button className="sidebar-btn" onClick={() => navigate('/staff-analysis')}>STAFF ANALYSIS</button>
+
+         {/* NEW BUTTON */}
+        <button className="sidebar-btn" onClick={() => navigate('/saved-staff')}>
+          SAVED STAFF ANALYSIS
+        </button>
 
       </div>
 

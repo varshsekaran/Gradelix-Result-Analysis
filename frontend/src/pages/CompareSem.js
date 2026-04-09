@@ -31,7 +31,7 @@ function CompareSemester() {
       },
       {
         label: entry2.name,
-        backgroundColor: 'rgba(25, 25, 112, 0.6)',
+        backgroundColor: 'rgba(196, 211, 33, 0.6)',
         data: data2,
       },
     ],

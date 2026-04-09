@@ -33,12 +33,12 @@ function CompareCae() {
     datasets: [
       {
         label: entry1.name,
-        backgroundColor: 'rgba(227, 75, 75, 0.6)',
+        backgroundColor: 'rgba(12, 80, 214, 0.6)',
         data: data1
       },
       {
         label: entry2.name,
-        backgroundColor: 'rgba(72, 3, 3, 0.6)',
+        backgroundColor: 'rgba(231, 216, 16, 0.6)',
         data: data2
       }
     ]
