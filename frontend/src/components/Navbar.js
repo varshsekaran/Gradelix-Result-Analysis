@@ -15,7 +15,7 @@ const Navbar =  ({ setShowLogin }) => {
   
         <div className='navbar'>
 
-            
+        <button onClick={handleLogout}>Logout</button>
         </div>
       </div>
   );

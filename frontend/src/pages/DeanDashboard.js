@@ -2,6 +2,21 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import * as XLSX from 'xlsx';
 import './DeanDashboard.css';
+import { useEffect } from 'react';
+
+useEffect(() => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    navigate('/', { replace: true });
+  }
+}, []);
+
+useEffect(() => {
+  window.history.pushState(null, null, window.location.href);
+  window.onpopstate = function () {
+    window.history.go(1);
+  };
+}, []);
 
 function DeanDashboard() {
   const [year, setYear] = useState('2025');

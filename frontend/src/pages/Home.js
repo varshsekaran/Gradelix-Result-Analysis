@@ -3,6 +3,15 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
 
+import { useEffect } from 'react';
+
+useEffect(() => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    navigate('/hod', { replace: true });
+  }
+}, []);
+
 function Home() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
