@@ -4,17 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import './Home.css';
 
 function Home() {
-  const [isRegister, setIsRegister] = useState(false);
+ 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();   // <-- NEW
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = isRegister
-      ? 'https://gradelix-backend.onrender.com/api/auth/register'
-      : 'https://gradelix-backend.onrender.com/api/auth/login';
-
+    const url = 'https://gradelix-backend.onrender.com/api/auth/login';
     try {
       const res = await axios.post(url, { email, password });
       alert(res.data.msg || 'Success');
@@ -57,16 +54,10 @@ function Home() {
         />
 
         <button type="submit">
-          {isRegister ? 'Register' : 'Login'}
+          Login
         </button>
 
-        <p>
-          {isRegister ? 'Already have an account?' : "Don't have an account?"}
-          <span style={{ color: 'blue', cursor: 'pointer' }}
-                onClick={() => setIsRegister(!isRegister)}>
-            {isRegister ? ' Login' : ' Register'}
-          </span>
-        </p>
+        
       </form>
       </div>
     </div>

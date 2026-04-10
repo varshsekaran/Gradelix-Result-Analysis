@@ -4,22 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const HOD = require('../models/Dean');
 
-// Register HOD
-router.post('/register', async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    const existing = await HOD.findOne({ email });
-    if (existing) return res.status(400).json({ msg: 'Dean already exists' });
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newHOD = new HOD({ email, password: hashedPassword });
-    await newHOD.save();
-
-    res.status(201).json({ msg: 'Registered successfully' });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
 
 // Login HOD
 router.post('/login', async (req, res) => {
