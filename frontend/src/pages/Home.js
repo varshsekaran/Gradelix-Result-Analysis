@@ -4,61 +4,50 @@ import { useNavigate } from 'react-router-dom';
 import './Home.css';
 
 function Home() {
- 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();   // <-- NEW
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = 'https://gradelix-backend.onrender.com/api/auth/login';
+
     try {
-      const res = await axios.post(url, { email, password });
-      alert(res.data.msg || 'Success');
+      const res = await axios.post(
+        'https://gradelix-backend.onrender.com/api/auth/login',
+        { email, password }
+      );
 
-      if (isRegister) {
-        // after successful registration, flip to login mode & clear fields
-        setIsRegister(false);
-        setPassword('');
-        return;
-      }
-
-      // login success: store token & go to dashboard
       localStorage.setItem('token', res.data.token);
       navigate('/hod');
     } catch (err) {
-      alert(err?.response?.data?.msg || 'Something went wrong');
+      alert(err?.response?.data?.msg || 'Login failed');
     }
   };
 
   return (
     <div className="home-wrapper">
       <div className="container">
-      <form className="auth-card" onSubmit={handleSubmit}>
-        <h2>{isRegister ? 'Register' : 'Login'}</h2>
+        <form className="auth-card" onSubmit={handleSubmit}>
+          <h2>Login</h2>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
 
-        <button type="submit">
-          Login
-        </button>
-
-        
-      </form>
+          <button type="submit">Login</button>
+        </form>
       </div>
     </div>
   );
