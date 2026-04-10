@@ -25,9 +25,8 @@ function Sidebar() {
         ></div>
 
         <div className="profile-info">
-          <div className="name">Dr.L.Lakshmanan - CSE</div>
-          <div className="degree">M.E., Ph.D</div>
-          <div className="role">Dean</div>
+          <div className="name">Admin - CSE</div>
+          
         </div>
 
         <button className="sidebar-btn" onClick={() => navigate('/hod?mode=cae')}>CAE</button>
