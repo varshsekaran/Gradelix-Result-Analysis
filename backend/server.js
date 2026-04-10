@@ -6,7 +6,7 @@ require('dotenv').config();
 const app = express();
 
 app.use(cors({
-  origin: "https://gradelix-result-analysis-hrzt.vercel.app",
+  origin: true,
   credentials: true
 }));
 app.use(express.json());
