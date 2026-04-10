@@ -5,9 +5,12 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: "https://gradelix-result-analysis-hrzt.vercel.app",
+  credentials: true
+}));
 app.use(express.json());
-
+app.options('*', cors());
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
