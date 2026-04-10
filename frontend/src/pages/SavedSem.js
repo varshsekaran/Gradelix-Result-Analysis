@@ -9,7 +9,7 @@ function SavedSem() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/saved-semester')
+    axios.get('https://gradelix-backend.onrender.com/api/saved-semester')
       .then(res => setSavedFiles(res.data))
       .catch(err => console.error('Error fetching semester data', err));
   }, []);
@@ -28,7 +28,7 @@ function SavedSem() {
 
   const handleCompare = async () => {
     try {
-      const res = await axios.post('http://localhost:5000/api/compare-semester', {
+      const res = await axios.post('https://gradelix-backend.onrender.com/api/compare-semester', {
         id1: selectedIds[0],
         id2: selectedIds[1]
       });

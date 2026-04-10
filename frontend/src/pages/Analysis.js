@@ -30,7 +30,7 @@ function Analysis() {
     try {
       const endpoint = mode === 'cae' ? 'save-cae' : 'save-semester';
 
-      await axios.post(`http://localhost:5000/api/${endpoint}`, {
+      await axios.post(`https://gradelix-backend.onrender.com/api/${endpoint}`, {
         name: saveName,
         year,
         semester,

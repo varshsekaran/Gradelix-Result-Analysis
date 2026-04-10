@@ -17,7 +17,7 @@ function StaffAnalysis() {
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
     const jsonData = XLSX.utils.sheet_to_json(sheet, { defval: '' });
 
-    const response = await axios.get('http://localhost:5000/api/staff-subject');
+    const response = await axios.get('https://gradelix-backend.onrender.com/api/staff-subject');
 
     const staffSubjectMap = {};
 
@@ -70,7 +70,7 @@ function StaffAnalysis() {
       return;
     }
 
-    await axios.post("http://localhost:5000/api/save-staff", {
+    await axios.post("https://gradelix-backend.onrender.com/api/save-staff", {
       name: saveName,
       analysis
     });

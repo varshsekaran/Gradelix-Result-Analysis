@@ -9,7 +9,7 @@ function SavedCae() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/saved-cae')
+    axios.get('https://gradelix-backend.onrender.com/api/saved-cae')
       .then(res => setSavedAnalyses(res.data))
       .catch(err => console.error(err));
   }, []);
@@ -28,7 +28,7 @@ function SavedCae() {
 
   const handleCompare = async () => {
     try {
-      const res = await axios.post('http://localhost:5000/api/compare-cae', {
+      const res = await axios.post('https://gradelix-backend.onrender.com/api/compare-cae', {
         id1: selectedIds[0],
         id2: selectedIds[1]
       });

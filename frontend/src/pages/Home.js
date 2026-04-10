@@ -12,8 +12,8 @@ function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const url = isRegister
-      ? 'http://localhost:5000/api/auth/register'
-      : 'http://localhost:5000/api/auth/login';
+      ? 'https://gradelix-backend.onrender.com/api/auth/register'
+      : 'https://gradelix-backend.onrender.com/api/auth/login';
 
     try {
       const res = await axios.post(url, { email, password });

@@ -12,7 +12,7 @@ function SavedStaff() {
 
   useEffect(() => {
 
-    axios.get('http://localhost:5000/api/saved-staff')
+    axios.get('https://gradelix-backend.onrender.com/api/saved-staff')
       .then(res => setSaved(res.data));
 
   }, []);
@@ -30,7 +30,7 @@ function SavedStaff() {
 
   const handleCompare = async () => {
 
-    const res = await axios.post('http://localhost:5000/api/compare-staff', {
+    const res = await axios.post('https://gradelix-backend.onrender.com/api/compare-staff', {
       id1: selectedIds[0],
       id2: selectedIds[1]
     });
