@@ -14,7 +14,7 @@ function DeanDashboard() {
   const query = new URLSearchParams(location.search);
   const mode = query.get('mode'); // 'cae' or 'semester'
 
-  const handleAnalyse = () => {
+  function handleAnalyse() {
     if (!file) {
       alert("Please upload a file");
       return;
@@ -57,9 +57,8 @@ function DeanDashboard() {
           subjectStats[header].total++;
 
           const cleaned = String(value).trim().replace(/,/g, '');
-          
-          const isAbsent =
-            cleaned === 'A' || cleaned === 'a' || cleaned === '-' || cleaned === '' || isNaN(Number(cleaned));
+
+          const isAbsent = cleaned === 'A' || cleaned === 'a' || cleaned === '-' || cleaned === '' || isNaN(Number(cleaned));
 
           if (isAbsent) {
             subjectStats[header].absent++;
@@ -103,7 +102,7 @@ function DeanDashboard() {
     };
 
     reader.readAsBinaryString(file);
-  };
+  }
 
   return (
     <div className="hod-dashboard-wrapper">

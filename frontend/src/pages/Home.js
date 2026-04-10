@@ -7,7 +7,7 @@ function Home() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -18,7 +18,7 @@ function Home() {
       );
 
       localStorage.setItem('token', res.data.token);
-      navigate('/hod');
+      navigate('/hod', {replace: true});
     } catch (err) {
       alert(err?.response?.data?.msg || 'Login failed');
     }
