@@ -77,3 +77,20 @@
 .analysis-table tr:hover {
   background-color: #f1f5f9;
 }
+@media (max-width: 768px) {
+  .analysis-container,
+  .staffanalysis-container {
+    margin-left: 0;
+    width: 100%;
+    padding: 10px;
+    top: 140px;
+  }
+
+  .analysis-table th,
+  .analysis-table td,
+  .staffanalysis-table th,
+  .staffanalysis-table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+}

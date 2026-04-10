@@ -49,3 +49,18 @@
   cursor: pointer;
   transition: 0.3s;
 }
+@media (max-width: 768px) {
+  .container {
+    width: 90%;
+    height: auto;
+    padding: 20px;
+  }
+
+  .container input {
+    width: 100%;
+  }
+
+  .container button {
+    width: 100%;
+  }
+}

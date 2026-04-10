@@ -86,3 +86,31 @@ html, body {
   background-color: white; /* Will be covered by image */
   margin-bottom: 0px;
 }
+@media (max-width: 768px) {
+
+  .sidebar {
+    position: fixed;
+    top: 80px;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 10px;
+  }
+
+  .sidebar-btn {
+    min-width: 120px;
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .profile-logo,
+  .profile-info {
+    display: none;
+  }
+
+  .content {
+    margin-top: 140px;
+    padding: 10px;
+  }
+}

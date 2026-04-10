@@ -77,3 +77,17 @@ body, html {
 .hod-button:hover {
   background-color: #a71d4d;
 }
+
+@media (max-width: 768px) {
+  .hod-dashboard-wrapper {
+    padding-left: 0;
+    padding-top: 120px;
+    width: 100%;
+  }
+
+  .hod-dashboard-card {
+    margin-left: 0;
+    width: 100%;
+    padding: 20px;
+  }
+}

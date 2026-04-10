@@ -79,3 +79,13 @@
   justify-content: space-around;
   gap: 50px;
 }
+
+@media (max-width: 768px) {
+  .savedcae-container,
+  .savedsem-container,
+  .savedstaff-container {
+    margin-left: 0;
+    width: 100%;
+    padding: 10px;
+  }
+}

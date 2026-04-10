@@ -11,7 +11,6 @@
   left: 0px;/* Sidebar width */
   right: 0;
   padding-bottom: 100px; 
-
   scrollbar-width: none;         /* Firefox */
   -ms-overflow-style: none; 
 }
@@ -58,4 +57,22 @@
 /* Hover effect for table rows */
 .staffanalysis-table tr:hover {
   background-color: #f1f5f9;
+}
+
+@media (max-width: 768px) {
+  .analysis-container,
+  .staffanalysis-container {
+    margin-left: 0;
+    width: 100%;
+    padding: 10px;
+    top: 140px;
+  }
+
+  .analysis-table th,
+  .analysis-table td,
+  .staffanalysis-table th,
+  .staffanalysis-table td {
+    font-size: 12px;
+    padding: 8px;
+  }
 }
