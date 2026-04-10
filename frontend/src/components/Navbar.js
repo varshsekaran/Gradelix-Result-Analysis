@@ -1,24 +1,25 @@
-import React from 'react'
-import './Navbar.css'
-import logo from "../assets/Logo.jpeg"; 
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import './Navbar.css';
+import logo from "../assets/Logo.jpeg";
 
-const handleLogout = () => {
-  localStorage.removeItem('token');
-  navigate('/', { replace: true });
-};
+const Navbar = () => {
+  const navigate = useNavigate();
 
-const Navbar =  ({ setShowLogin }) => {
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/', { replace: true });
+  };
+
   return (
     <div className="auth-container1">
-          {/* Logo Image at the top */}
-          <img src={logo} alt="Logo" className="logo" onClick={handleLogout} />
-  
-        <div className='navbar'>
+      <img src={logo} alt="Logo" className="logo" onClick={handleLogout} />
 
+      <div className='navbar'>
         <button onClick={handleLogout}>Logout</button>
-        </div>
       </div>
+    </div>
   );
 };
 
-export default Navbar
+export default Navbar;

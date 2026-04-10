@@ -1,22 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
-
-import { useEffect } from 'react';
-
-useEffect(() => {
-  const token = localStorage.getItem('token');
-  if (token) {
-    navigate('/hod', { replace: true });
-  }
-}, []);
 
 function Home() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/hod', { replace: true });
+    }
+  }, [navigate]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -27,7 +25,7 @@ function Home() {
       );
 
       localStorage.setItem('token', res.data.token);
-      navigate('/hod', {replace: true});
+      navigate('/hod', { replace: true });
     } catch (err) {
       alert(err?.response?.data?.msg || 'Login failed');
     }

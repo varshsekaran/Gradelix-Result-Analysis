@@ -4,7 +4,20 @@ import * as XLSX from 'xlsx';
 import './DeanDashboard.css';
 import { useEffect } from 'react';
 
-useEffect(() => {
+
+
+function DeanDashboard() {
+  const [year, setYear] = useState('2025');
+  const [semester, setSemester] = useState('1');
+  const [cae, setCae] = useState('1');
+  const [file, setFile] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const query = new URLSearchParams(location.search);
+  const mode = query.get('mode'); // 'cae' or 'semester'
+
+  useEffect(() => {
   const token = localStorage.getItem('token');
   if (!token) {
     navigate('/', { replace: true });
@@ -17,17 +30,6 @@ useEffect(() => {
     window.history.go(1);
   };
 }, []);
-
-function DeanDashboard() {
-  const [year, setYear] = useState('2025');
-  const [semester, setSemester] = useState('1');
-  const [cae, setCae] = useState('1');
-  const [file, setFile] = useState(null);
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const query = new URLSearchParams(location.search);
-  const mode = query.get('mode'); // 'cae' or 'semester'
 
   function handleAnalyse() {
     if (!file) {
